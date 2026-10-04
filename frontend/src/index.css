@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  background-color: #111216 !important;
+  color-scheme: dark;
+}
+
+body {
+  background-color: #111216 !important;
+  color: #F3F4F6 !important;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Premium Tooltip styling */
+.chart-tooltip {
+  position: absolute;
+  pointer-events: none;
+  background: rgba(25, 27, 33, 0.95);
+  backdrop-filter: blur(12px);
+  color: #FFFFFF;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 12px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 0 15px rgba(255, 122, 48, 0.15);
+  z-index: 100;
+  transition: opacity 0.15s ease, transform 0.1s ease;
+  line-height: 1.5;
+}
+
+/* Hexagon Card Styling */
+.hexagon-wrapper {
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease;
+}
+
+.hexagon-border {
+  position: relative;
+  background: linear-gradient(135deg, rgba(255,122,48,0.4) 0%, rgba(155,108,255,0.2) 100%);
+  padding: 1.5px;
+}
+
+/* Glow Utilities */
+.glow-text-orange {
+  text-shadow: 0 0 12px rgba(255, 122, 48, 0.5);
+}
+
+.glow-text-green {
+  text-shadow: 0 0 12px rgba(53, 208, 127, 0.5);
+}
+
+.glow-text-blue {
+  text-shadow: 0 0 12px rgba(53, 201, 255, 0.5);
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #111216;
+}
+::-webkit-scrollbar-thumb {
+  background: #262933;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #FF7A30;
+}
+
+/* Print Styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+}

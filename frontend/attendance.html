@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Attendance Marking - Student Attendance Dashboard</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Left Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="logo-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+      <div class="logo-text">
+        <h2>EduTrack</h2>
+        <span>Attendance System</span>
+      </div>
+    </div>
+    <ul class="nav-menu">
+      <li class="nav-item"><a href="index.html"><i class="fa-solid fa-chart-pie"></i> Dashboard</a></li>
+      <li class="nav-item"><a href="students.html"><i class="fa-solid fa-user-graduate"></i> Students</a></li>
+      <li class="nav-item active"><a href="attendance.html"><i class="fa-solid fa-clipboard-user"></i> Attendance</a></li>
+      <li class="nav-item"><a href="analytics.html"><i class="fa-solid fa-chart-line"></i> Analytics</a></li>
+      <li class="nav-item"><a href="reports.html"><i class="fa-solid fa-file-invoice"></i> Reports</a></li>
+    </ul>
+  </aside>
+
+  <div class="main-wrapper">
+    <header class="top-navbar">
+      <div class="nav-left">
+        <button class="mobile-toggle" id="mobile-toggle"><i class="fa-solid fa-bars"></i></button>
+        <div class="page-title">
+          <h1>Mark Attendance</h1>
+          <p>Record Daily Class Attendance by Subject & Division</p>
+        </div>
+      </div>
+      <div class="nav-right">
+        <div class="user-profile">
+          <div class="avatar">AD</div>
+          <div class="user-info">
+            <div class="user-name">Dr. Rajesh Sharma</div>
+            <div class="user-role">Faculty / HOD CSE</div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="content-container">
+
+      <!-- Class Selection Bar -->
+      <div class="filter-bar">
+        <div class="filter-controls">
+          <div class="filter-group">
+            <label>Date *</label>
+            <input type="date" id="att-date" value="2026-09-01">
+          </div>
+          <div class="filter-group">
+            <label>Class *</label>
+            <select id="att-class">
+              <option value="2A">Class 2A</option>
+              <option value="2B">Class 2B</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label>Division *</label>
+            <select id="att-division">
+              <option value="D1">Division D1</option>
+              <option value="D2">Division D2</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label>Subject *</label>
+            <select id="att-subject"></select>
+          </div>
+          <button class="btn btn-secondary" id="btn-load-roster"><i class="fa-solid fa-arrows-rotate"></i> Load Roster</button>
+        </div>
+        
+        <div style="display:flex;gap:8px;">
+          <button class="btn btn-secondary btn-sm" id="btn-mark-all-present"><i class="fa-solid fa-check-double"></i> Mark All Present</button>
+          <button class="btn btn-secondary btn-sm" id="btn-mark-all-absent"><i class="fa-solid fa-xmark"></i> Mark All Absent</button>
+        </div>
+      </div>
+
+      <!-- Feedback Alert Banner -->
+      <div id="attendance-alert" style="display:none;" class="alert-warning-banner"></div>
+
+      <!-- Attendance Roster Table -->
+      <div class="table-card">
+        <div class="table-header">
+          <div class="table-title">
+            <h3>Class Roster & Marking (<span id="roster-count">0</span> Students)</h3>
+          </div>
+          <button class="btn btn-primary" id="btn-submit-attendance"><i class="fa-solid fa-cloud-arrow-up"></i> Submit Attendance</button>
+        </div>
+        <div class="table-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th>Roll Number</th>
+                <th>Student Name</th>
+                <th>Email</th>
+                <th>Class & Div</th>
+                <th>Status Toggle</th>
+              </tr>
+            </thead>
+            <tbody id="attendance-roster-body">
+              <!-- Rendered via JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="js/api.js?v=2"></script>
+  <script src="js/attendance.js?v=2"></script>
+</body>
+</html>

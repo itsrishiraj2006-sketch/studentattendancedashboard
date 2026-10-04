@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Advanced Analytics - Student Attendance Dashboard</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+
+  <!-- Left Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="logo-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+      <div class="logo-text">
+        <h2>EduTrack</h2>
+        <span>Attendance System</span>
+      </div>
+    </div>
+    <ul class="nav-menu">
+      <li class="nav-item"><a href="index.html"><i class="fa-solid fa-chart-pie"></i> Dashboard</a></li>
+      <li class="nav-item"><a href="students.html"><i class="fa-solid fa-user-graduate"></i> Students</a></li>
+      <li class="nav-item"><a href="attendance.html"><i class="fa-solid fa-clipboard-user"></i> Attendance</a></li>
+      <li class="nav-item active"><a href="analytics.html"><i class="fa-solid fa-chart-line"></i> Analytics</a></li>
+      <li class="nav-item"><a href="reports.html"><i class="fa-solid fa-file-invoice"></i> Reports</a></li>
+    </ul>
+  </aside>
+
+  <div class="main-wrapper">
+    <header class="top-navbar">
+      <div class="nav-left">
+        <button class="mobile-toggle" id="mobile-toggle"><i class="fa-solid fa-bars"></i></button>
+        <div class="page-title">
+          <h1>Academic Analytics</h1>
+          <p>D3.js Cohort Performance Breakdown & Threshold Diagnostics</p>
+        </div>
+      </div>
+      <div class="nav-right">
+        <div class="user-profile">
+          <div class="avatar">AD</div>
+          <div class="user-info">
+            <div class="user-name">Dr. Rajesh Sharma</div>
+            <div class="user-role">Faculty / HOD CSE</div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="content-container">
+
+      <!-- Analytics Filters Bar -->
+      <div class="filter-bar">
+        <div class="filter-title">
+          <i class="fa-solid fa-filter"></i> Analytics Scope:
+        </div>
+        <div class="filter-controls">
+          <div class="filter-group">
+            <label>Class</label>
+            <select id="analytics-filter-class">
+              <option value="All">All Classes</option>
+              <option value="2A">Class 2A</option>
+              <option value="2B">Class 2B</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label>Division</label>
+            <select id="analytics-filter-division">
+              <option value="All">All Divisions</option>
+              <option value="D1">Division D1</option>
+              <option value="D2">Division D2</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label>Subject</label>
+            <select id="analytics-filter-subject">
+              <option value="All">All Subjects</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Analytics Charts Grid -->
+      <div class="charts-grid">
+
+        <!-- 1. Attendance Distribution -->
+        <div class="chart-card">
+          <div class="chart-header">
+            <div class="chart-title">
+              <h3>Cohort Attendance Distribution</h3>
+              <p>Students grouped into performance brackets</p>
+            </div>
+          </div>
+          <div class="chart-container" id="chart-analytics-distribution"></div>
+        </div>
+
+        <!-- 2. Subject Performance Comparison -->
+        <div class="chart-card">
+          <div class="chart-header">
+            <div class="chart-title">
+              <h3>Subject Performance Comparison</h3>
+              <p>Average attendance rates across core curriculum</p>
+            </div>
+          </div>
+          <div class="chart-container" id="chart-analytics-subjects"></div>
+        </div>
+
+        <!-- 3. Top 5 Attendance Performers Leaderboard -->
+        <div class="chart-card">
+          <div class="chart-header">
+            <div class="chart-title">
+              <h3><i class="fa-solid fa-trophy" style="color:#f59e0b;"></i> Top Attendance Performers</h3>
+              <p>Top 5 students with highest attendance rates</p>
+            </div>
+          </div>
+          <div style="padding:10px 0;">
+            <div id="top-performers-list">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. Extended Attendance Trend Timeline -->
+        <div class="chart-card">
+          <div class="chart-header">
+            <div class="chart-title">
+              <h3>Attendance Trend Timeline</h3>
+              <p>Daily progression of overall attendance percentage</p>
+            </div>
+          </div>
+          <div class="chart-container" id="chart-analytics-trend"></div>
+        </div>
+
+        <!-- 5. Low Attendance Warning Table (<75%) -->
+        <div class="chart-card full-width">
+          <div class="chart-header">
+            <div class="chart-title" style="display:flex;align-items:center;gap:10px;">
+              <i class="fa-solid fa-triangle-exclamation" style="color:#ef4444;font-size:20px;"></i>
+              <div>
+                <h3>Low Attendance Alert List (Below 75%)</h3>
+                <p>Students failing the 75% attendance threshold requirement requiring immediate faculty intervention.</p>
+              </div>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table>
+              <thead>
+                <tr>
+                  <th>Roll Number</th>
+                  <th>Student Name</th>
+                  <th>Email</th>
+                  <th>Class & Div</th>
+                  <th>Classes Attended</th>
+                  <th>Attendance %</th>
+                  <th>Deficit</th>
+                  <th style="text-align:right;">Action</th>
+                </tr>
+              </thead>
+              <tbody id="low-attendance-table-body">
+                <!-- Rendered dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+
+    </main>
+  </div>
+
+  <script src="js/api.js?v=2"></script>
+  <script src="js/charts.js?v=2"></script>
+  <script src="js/analytics.js?v=2"></script>
+</body>
+</html>

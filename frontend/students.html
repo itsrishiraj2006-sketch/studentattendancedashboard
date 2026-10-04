@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Management - Student Attendance Dashboard</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Left Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="logo-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+      <div class="logo-text">
+        <h2>EduTrack</h2>
+        <span>Attendance System</span>
+      </div>
+    </div>
+    <ul class="nav-menu">
+      <li class="nav-item"><a href="index.html"><i class="fa-solid fa-chart-pie"></i> Dashboard</a></li>
+      <li class="nav-item active"><a href="students.html"><i class="fa-solid fa-user-graduate"></i> Students</a></li>
+      <li class="nav-item"><a href="attendance.html"><i class="fa-solid fa-clipboard-user"></i> Attendance</a></li>
+      <li class="nav-item"><a href="analytics.html"><i class="fa-solid fa-chart-line"></i> Analytics</a></li>
+      <li class="nav-item"><a href="reports.html"><i class="fa-solid fa-file-invoice"></i> Reports</a></li>
+    </ul>
+  </aside>
+
+  <!-- Main Wrapper -->
+  <div class="main-wrapper">
+    <header class="top-navbar">
+      <div class="nav-left">
+        <button class="mobile-toggle" id="mobile-toggle"><i class="fa-solid fa-bars"></i></button>
+        <div class="page-title">
+          <h1>Student Directory</h1>
+          <p>Manage Enrolled Students, Records & Attendance Performance</p>
+        </div>
+      </div>
+      <div class="nav-right">
+        <div class="user-profile">
+          <div class="avatar">AD</div>
+          <div class="user-info">
+            <div class="user-name">Dr. Rajesh Sharma</div>
+            <div class="user-role">Faculty / HOD CSE</div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="content-container">
+      
+      <!-- Student Management Controls Bar -->
+      <div class="filter-bar">
+        <div class="filter-controls">
+          <div class="search-box" style="width:260px;">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="student-search-input" placeholder="Search by name, roll no...">
+          </div>
+          <div class="filter-group">
+            <label>Class</label>
+            <select id="students-filter-class">
+              <option value="All">All Classes</option>
+              <option value="2A">Class 2A</option>
+              <option value="2B">Class 2B</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label>Division</label>
+            <select id="students-filter-division">
+              <option value="All">All Divisions</option>
+              <option value="D1">Division D1</option>
+              <option value="D2">Division D2</option>
+            </select>
+          </div>
+        </div>
+        <button class="btn btn-primary" id="btn-open-add-student"><i class="fa-solid fa-user-plus"></i> Add New Student</button>
+      </div>
+
+      <!-- Students Table -->
+      <div class="table-card">
+        <div class="table-header">
+          <div class="table-title">
+            <h3>Student Roster (<span id="student-count-display">0</span>)</h3>
+          </div>
+        </div>
+        <div class="table-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th>Roll Number</th>
+                <th>Student Name</th>
+                <th>Email</th>
+                <th>Class & Div</th>
+                <th>Department</th>
+                <th>Attendance %</th>
+                <th>Status</th>
+                <th style="text-align:right;">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="students-table-body">
+              <!-- Rendered dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Modal: Add / Edit Student -->
+  <div class="modal-overlay" id="add-edit-student-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="modal-form-title">Add New Student</h3>
+        <button class="modal-close" id="btn-close-form-modal"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <form id="student-form">
+        <div class="modal-body">
+          <input type="hidden" id="form-student-id">
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Roll Number *</label>
+              <input type="text" id="form-roll-no" placeholder="e.g. 2025CS121" required>
+            </div>
+            <div class="form-group">
+              <label>Full Name *</label>
+              <input type="text" id="form-name" placeholder="e.g. Rahul Sharma" required>
+            </div>
+            <div class="form-group full-width">
+              <label>Email Address *</label>
+              <input type="email" id="form-email" placeholder="e.g. rahul.sharma@college.edu" required>
+            </div>
+            <div class="form-group">
+              <label>Class *</label>
+              <select id="form-class" required>
+                <option value="2A">2A</option>
+                <option value="2B">2B</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Division *</label>
+              <select id="form-division" required>
+                <option value="D1">D1</option>
+                <option value="D2">D2</option>
+              </select>
+            </div>
+            <div class="form-group full-width">
+              <label>Department</label>
+              <input type="text" id="form-department" value="Computer Science">
+            </div>
+          </div>
+          <div id="form-error-msg" style="color:var(--danger);font-size:12px;margin-top:12px;display:none;"></div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" id="btn-cancel-student-form">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="btn-save-student"><i class="fa-solid fa-floppy-disk"></i> Save Student</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Student Profile Detail Modal -->
+  <div class="modal-overlay" id="student-detail-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="modal-student-name">Student Profile</h3>
+        <button class="modal-close" id="btn-close-modal"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body" id="modal-student-body"></div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" id="btn-modal-done">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/api.js?v=2"></script>
+  <script src="js/students.js?v=2"></script>
+</body>
+</html>
